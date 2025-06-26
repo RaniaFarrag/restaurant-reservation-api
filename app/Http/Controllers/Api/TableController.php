@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Table;
 use App\Models\Reservation;
 use App\Models\Customer;
+use App\Models\WaitingList;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -105,9 +106,18 @@ class TableController extends Controller
             }
         }
 
+        /** Waiting list */
+        $waiting = WaitingList::create([
+            'customer_id' => $customer->id,
+            'guests' => $guests,
+            'from_time' => $from,
+            'to_time' => $to,
+        ]);
+
         return response()->json([
             'success' => false,
-            'message' => 'No available tables for the selected time.'
+            'message' => 'No tables available Now. Customer added to waiting list.',
+            'waiting_id' => $waiting->id,
         ], 200);
     }
 

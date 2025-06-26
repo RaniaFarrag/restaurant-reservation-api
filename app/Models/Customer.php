@@ -26,4 +26,9 @@ class Customer extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function waitingLists()
+    {
+        return $this->hasMany(WaitingList::class);
+    }
+
 }
