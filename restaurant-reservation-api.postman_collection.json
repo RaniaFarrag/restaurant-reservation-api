@@ -1,0 +1,235 @@
+{
+	"info": {
+		"_postman_id": "3d42b565-c888-4c43-8b33-6312952f2a16",
+		"name": "Restaurant Reservation API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9972679"
+	},
+	"item": [
+		{
+			"name": "table",
+			"item": [
+				{
+					"name": "check-availability",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}check-availability?guests=3&from_time=2025-06-26T18:00:00&to_time=2025-06-26T20:00:00",
+							"host": [
+								"{{local}}check-availability"
+							],
+							"query": [
+								{
+									"key": "guests",
+									"value": "3"
+								},
+								{
+									"key": "from_time",
+									"value": "2025-06-26T18:00:00"
+								},
+								{
+									"key": "to_time",
+									"value": "2025-06-26T20:00:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reserve_table",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Rania Farrag\",\n  \"phone\": \"01001234567\",\n  \"guests\": 4,\n  \"from_time\": \"2025-06-27T18:00:00\",\n  \"to_time\": \"2025-06-27T20:00:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}reserve-table",
+							"host": [
+								"{{local}}reserve-table"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Meal",
+			"item": [
+				{
+					"name": "menu-items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}menu-items",
+							"host": [
+								"{{local}}menu-items"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "place-order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"reservation_id\": 1,\n  \"meals\": [\n    {\n      \"id\": 1,\n      \"quantity\": 2\n    },\n    {\n      \"id\": 2,\n      \"quantity\": 1\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}place-order",
+							"host": [
+								"{{local}}place-order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pay",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"order_id\": 1,\n  \"method\": \"tax_and_service\"  // or \"service_only\"\n}\n"
+						},
+						"url": {
+							"raw": "{{local}}pay",
+							"host": [
+								"{{local}}pay"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"test@example.com\",\n  \"password\": \"test123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}login",
+							"host": [
+								"{{local}}login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "local",
+			"value": "http://localhost/api/",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "5|QFTjuFWTi6m1WnoyJRd2zM85sn6G6YzlzzHNLseec009d96d",
+			"type": "string"
+		}
+	]
+}
